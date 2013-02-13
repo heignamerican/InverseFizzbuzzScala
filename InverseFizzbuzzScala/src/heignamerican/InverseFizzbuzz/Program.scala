@@ -11,8 +11,6 @@ object Program extends App {
   show("Fizz", "Buzz", "Fizz")
 
   def show(aInput: String*) = {
-    val MIN = 1
-    val MAX = 100
-    println(aInput.toList + " => " + MinLoopLogic.invFizzbuzz(aInput, MIN, MAX))
+    println(aInput.toList + " => " + MinLoopLogic.inverseFizzbuzz(aInput, 1, 100))
   }
 }
