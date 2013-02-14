@@ -1,8 +1,8 @@
 package heignamerican.InverseFizzbuzz
 import scala.math.Ordering
-
 import heignamerican.InverseFizzbuzz.Fizzbuzz.isFizzbuzz
 import heignamerican.InverseFizzbuzz.Fizzbuzz.toFizzbuzz
+import scala.collection.immutable.Stream
 
 object MinLoopLogic {
   val mMinLoop = Range(1, 16).filter(isFizzbuzz).map(x => Entry(x, toFizzbuzz(x)))
@@ -24,7 +24,14 @@ object MinLoopLogic {
   case class Entry(number: Int, fizzbuzz: String) {
     def next = Entry(number + 15, fizzbuzz)
   }
-  
+
+  def getMugen(): Stream[Entry] = {
+    def from(s: Seq[Entry], i: Int): Stream[Entry] = {
+      val t = s(i % s.size)
+      Stream.cons(Entry(t.number + 15 * (i / s.size), t.fizzbuzz), from(s, i + 1))
+    }
+    from(mMinLoop, 0)
+  }
 
   def getExtends = (aInput: Seq[Entry], aStart: Int, aCount: Int) => {
     def extend(aList: List[Entry], aIndex: Int): List[Entry] = {

@@ -1,8 +1,14 @@
 package heignamerican.InverseFizzbuzz
 import org.junit.Test
 import org.scalatest.junit.AssertionsForJUnit
+import org.junit.Ignore
 
 class MinLoopLogicTest extends AssertionsForJUnit {
+  @Test def testMugen() {
+    val extractedLocalValue = MinLoopLogic.getMugen
+    extractedLocalValue.take(30).foreach(println)
+  }
+
   @Test def test() {
     show(Result(3), "Fizz")
     show(Result(5), "Buzz")
