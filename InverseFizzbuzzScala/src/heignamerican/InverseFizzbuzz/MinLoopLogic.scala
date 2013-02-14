@@ -22,7 +22,6 @@ object MinLoopLogic {
   }
 
   case class Entry(number: Int, fizzbuzz: String) {
-    def next = Entry(number + 15, fizzbuzz)
   }
 
   def getMugen(): Stream[Entry] = {
