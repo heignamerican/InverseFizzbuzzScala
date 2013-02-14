@@ -1,12 +1,14 @@
 package heignamerican.InverseFizzbuzz
 import org.junit.Test
 import org.scalatest.junit.AssertionsForJUnit
-import org.junit.Ignore
+
+import heignamerican.InverseFizzbuzz.MinLoopLogic.Entry
 
 class MinLoopLogicTest extends AssertionsForJUnit {
   @Test def testMugen() {
-    val extractedLocalValue = MinLoopLogic.getMugen
-    extractedLocalValue.take(30).foreach(println)
+    val actual = MinLoopLogic.getMugen.take(30)
+    val expected = Seq(Entry(3, "Fizz"), Entry(5, "Buzz"), Entry(6, "Fizz"), Entry(9, "Fizz"), Entry(10, "Buzz"), Entry(12, "Fizz"), Entry(15, "FizzBuzz"), Entry(18, "Fizz"), Entry(20, "Buzz"), Entry(21, "Fizz"), Entry(24, "Fizz"), Entry(25, "Buzz"), Entry(27, "Fizz"), Entry(30, "FizzBuzz"), Entry(33, "Fizz"), Entry(35, "Buzz"), Entry(36, "Fizz"), Entry(39, "Fizz"), Entry(40, "Buzz"), Entry(42, "Fizz"), Entry(45, "FizzBuzz"), Entry(48, "Fizz"), Entry(50, "Buzz"), Entry(51, "Fizz"), Entry(54, "Fizz"), Entry(55, "Buzz"), Entry(57, "Fizz"), Entry(60, "FizzBuzz"), Entry(63, "Fizz"), Entry(65, "Buzz"))
+    assert(expected === actual)
   }
 
   @Test def test() {
@@ -20,6 +22,6 @@ class MinLoopLogicTest extends AssertionsForJUnit {
   }
 
   def checkSingle(aExpected: Result, aInput: String*) = {
-    assert(aExpected == MinLoopLogic.inverseFizzbuzz(aInput, 1, 100))
+    assert(aExpected === MinLoopLogic.inverseFizzbuzz(aInput, 1, 100))
   }
 }
