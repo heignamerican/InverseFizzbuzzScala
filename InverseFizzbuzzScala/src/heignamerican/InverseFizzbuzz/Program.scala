@@ -1,5 +1,4 @@
 package heignamerican.InverseFizzbuzz
-import javax.xml.transform.Result
 
 object Program extends App {
   show("Fizz")

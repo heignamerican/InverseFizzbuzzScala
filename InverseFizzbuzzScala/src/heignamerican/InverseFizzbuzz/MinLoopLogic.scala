@@ -24,13 +24,7 @@ object MinLoopLogic {
   case class Entry(number: Int, fizzbuzz: String) {
     def next = Entry(number + 15, fizzbuzz)
   }
-  case class Result(left: Int, right: Int) extends Ordered[Result] {
-    def length = right - left
-    override def compare(another: Result): Int = (length - another.length) match {
-      case 0 => -1
-      case x => x
-    }
-  }
+  
 
   def getExtends = (aInput: Seq[Entry], aStart: Int, aCount: Int) => {
     def extend(aList: List[Entry], aIndex: Int): List[Entry] = {
