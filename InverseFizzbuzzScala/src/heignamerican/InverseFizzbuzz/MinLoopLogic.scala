@@ -6,7 +6,7 @@ import scala.collection.immutable.Stream
 
 object MinLoopLogic {
   val mMinLoop = Range(1, 16).filter(isFizzbuzz).map(x => Entry(x, toFizzbuzz(x)))
-  val mInfinitLoop = getMugen()
+  val mInfinitLoop = from(mMinLoop, 0)
 
   def inverseFizzbuzz = (aInput: Seq[String], aMin: Int, aMax: Int) => {
     val tList = Range(0, mMinLoop.size + 1)
@@ -24,11 +24,8 @@ object MinLoopLogic {
   case class Entry(number: Int, fizzbuzz: String) {
   }
 
-  def getMugen(): Stream[Entry] = {
-    def from(s: Seq[Entry], i: Int): Stream[Entry] = {
-      val t = s(i % s.size)
-      Stream.cons(Entry(t.number + 15 * (i / s.size), t.fizzbuzz), from(s, i + 1))
-    }
-    from(mMinLoop, 0)
+  def from(s: Seq[Entry], i: Int): Stream[Entry] = {
+    val t = s(i % s.size)
+    Stream.cons(Entry(t.number + 15 * (i / s.size), t.fizzbuzz), from(s, i + 1))
   }
 }
