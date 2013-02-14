@@ -10,16 +10,16 @@ class MinLoopLogicTest extends AssertionsForJUnit {
   }
 
   @Test def test() {
-    show(Result(3), "Fizz")
-    show(Result(5), "Buzz")
-    show(Result(15), "FizzBuzz")
-    show(Result(15, 18), "FizzBuzz", "Fizz")
-    show(Result(9, 10), "Fizz", "Buzz")
-    show(Result(6, 10), "Fizz", "Fizz", "Buzz")
-    show(Result(3, 6), "Fizz", "Buzz", "Fizz")
+    checkSingle(Result(3), "Fizz")
+    checkSingle(Result(5), "Buzz")
+    checkSingle(Result(15), "FizzBuzz")
+    checkSingle(Result(15, 18), "FizzBuzz", "Fizz")
+    checkSingle(Result(9, 10), "Fizz", "Buzz")
+    checkSingle(Result(6, 10), "Fizz", "Fizz", "Buzz")
+    checkSingle(Result(3, 6), "Fizz", "Buzz", "Fizz")
   }
 
-  def show(aExpected: Result, aInput: String*) = {
+  def checkSingle(aExpected: Result, aInput: String*) = {
     assert(aExpected == MinLoopLogic.inverseFizzbuzz(aInput, 1, 100))
   }
 }
