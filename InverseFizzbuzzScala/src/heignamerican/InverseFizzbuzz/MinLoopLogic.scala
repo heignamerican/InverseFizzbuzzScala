@@ -8,17 +8,17 @@ object MinLoopLogic {
   }
 }
 
-class MinLoopLogic(mRule: FizzbuzzRule) {
+class MinLoopLogic(mRule: FizzbuzzRule, mMin: Int, mMax: Int) {
   val mMinLoopSize = mRule.minLength()
   val mMinLoop = Range.inclusive(1, mMinLoopSize).filter(mRule.isFizzbuzz).map(x => MinLoopLogic.Entry(x, mRule.toFizzbuzz(x)))
-  val mInfinitLoop = from(mMinLoop, 0)
+  val mInfinitLoop = from(mMinLoop, 0).filter(x => x.number > mMin)
 
-  def inverseFizzbuzz = (aInput: Seq[String], aMin: Int, aMax: Int) => {
+  def inverseFizzbuzz = (aInput: Seq[String]) => {
     val tList = Range.inclusive(0, mMinLoop.size)
       .map(aStart => mInfinitLoop.drop(aStart).take(aInput.size))
       .filter(_.zip(aInput).forall(x => x._1.fizzbuzz == x._2))
       .map(x => Result(x.head.number, x.last.number))
-      .filter(x => aMin <= x.left && x.right <= aMax)
+      .filter(x => x.right <= mMax)
 
     tList.size match {
       case 0 => None
