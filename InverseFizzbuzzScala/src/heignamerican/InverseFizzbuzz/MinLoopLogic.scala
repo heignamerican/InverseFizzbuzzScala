@@ -1,11 +1,16 @@
 package heignamerican.InverseFizzbuzz
-import scala.math.Ordering
-import heignamerican.InverseFizzbuzz.Fizzbuzz.isFizzbuzz
-import heignamerican.InverseFizzbuzz.Fizzbuzz.toFizzbuzz
 import scala.collection.immutable.Stream
 
+import heignamerican.InverseFizzbuzz.MinLoopLogic.Entry
+
 object MinLoopLogic {
-  val mMinLoop = Range(1, 16).filter(isFizzbuzz).map(x => Entry(x, toFizzbuzz(x)))
+  case class Entry(number: Int, fizzbuzz: String) {
+  }
+}
+
+class MinLoopLogic(mRule: FizzbuzzRule) {
+  val mMinLoopSize = mRule.minLength()
+  val mMinLoop = Range.inclusive(1, mMinLoopSize).filter(mRule.isFizzbuzz).map(x => MinLoopLogic.Entry(x, mRule.toFizzbuzz(x)))
   val mInfinitLoop = from(mMinLoop, 0)
 
   def inverseFizzbuzz = (aInput: Seq[String], aMin: Int, aMax: Int) => {
@@ -21,11 +26,8 @@ object MinLoopLogic {
     }
   }
 
-  case class Entry(number: Int, fizzbuzz: String) {
-  }
-
   def from(s: Seq[Entry], i: Int): Stream[Entry] = {
     val t = s(i % s.size)
-    Stream.cons(Entry(t.number + 15 * (i / s.size), t.fizzbuzz), from(s, i + 1))
+    Stream.cons(Entry(t.number + mMinLoopSize * (i / s.size), t.fizzbuzz), from(s, i + 1))
   }
 }
