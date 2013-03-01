@@ -12,30 +12,30 @@ class MinLoopLogicTest extends AssertionsForJUnit {
   }
 
   @Test def test() {
-    checkSingle(Result(3), "Fizz")
-    checkSingle(Result(5), "Buzz")
-    checkSingle(Result(15), "FizzBuzz")
-    checkSingle(Result(15, 18), "FizzBuzz", "Fizz")
-    checkSingle(Result(9, 10), "Fizz", "Buzz")
-    checkSingle(Result(6, 10), "Fizz", "Fizz", "Buzz")
-    checkSingle(Result(3, 6), "Fizz", "Buzz", "Fizz")
+    checkSingle(Seq("Fizz"), Result(3))
+    checkSingle(Seq("Buzz"), Result(5))
+    checkSingle(Seq("FizzBuzz"), Result(15))
+    checkSingle(Seq("FizzBuzz", "Fizz"), Result(15, 18))
+    checkSingle(Seq("Fizz", "Buzz"), Result(9, 10))
+    checkSingle(Seq("Fizz", "Fizz", "Buzz"), Result(6, 10))
+    checkSingle(Seq("Fizz", "Buzz", "Fizz"), Result(3, 6))
   }
 
-  def checkSingle(aExpected: Result, aInput: String*) = {
+  def checkSingle(aInput: Seq[String], aExpected: Result) = {
     assert(aExpected === new MinLoopLogic(Fizzbuzz3and5, 1, 100).inverseFizzbuzz(aInput))
   }
 
   @Test def test2() {
-    checkSingle2(Result(21), "Fizz")
-    checkSingle2(Result(25), "Buzz")
-    checkSingle2(Result(30), "FizzBuzz")
-    checkSingle2(Result(30, 33), "FizzBuzz", "Fizz")
-    checkSingle2(Result(24, 25), "Fizz", "Buzz")
-    checkSingle2(Result(21, 25), "Fizz", "Fizz", "Buzz")
-    checkSingle2(Result(24, 27), "Fizz", "Buzz", "Fizz")
+    checkSingle2(Seq("Fizz"), Result(21))
+    checkSingle2(Seq("Buzz"), Result(25))
+    checkSingle2(Seq("FizzBuzz"), Result(30))
+    checkSingle2(Seq("FizzBuzz", "Fizz"), Result(30, 33))
+    checkSingle2(Seq("Fizz", "Buzz"), Result(24, 25))
+    checkSingle2(Seq("Fizz", "Fizz", "Buzz"), Result(21, 25))
+    checkSingle2(Seq("Fizz", "Buzz", "Fizz"), Result(24, 27))
   }
 
-  def checkSingle2(aExpected: Result, aInput: String*) = {
+  def checkSingle2(aInput: Seq[String], aExpected: Result) = {
     assert(aExpected === new MinLoopLogic(Fizzbuzz3and5, 20, 100).inverseFizzbuzz(aInput))
   }
 }
