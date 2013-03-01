@@ -9,5 +9,5 @@ trait FizzbuzzRule {
   }
 
   def isFizzbuzz(num: Int): Boolean = getMap().exists { case (x, _) => num % x == 0 }
-  def toFizzbuzz(num: Int) = getMap().filter { case (x, _) => num % x == 0 }.map { case (_, fizzbuzz) => fizzbuzz }.mkString
+  def toFizzbuzz(num: Int) = getMap().collect { case (n, r) if num % n == 0 => r }.mkString
 }
