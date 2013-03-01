@@ -2,11 +2,9 @@ package heignamerican
 
 object MyMath {
   def gcd(left: Int, right: Int): Int = {
-    (left, left > right) match {
-      case (0, _) => right
-      case (_, true) => gcd(right, left)
-      case (_, _) => gcd(left, right - left)
-    }
+    if (left == 0) right
+    else
+      gcd(right % left, left)
   }
 
   def lcm(values: Seq[Int]) = {
