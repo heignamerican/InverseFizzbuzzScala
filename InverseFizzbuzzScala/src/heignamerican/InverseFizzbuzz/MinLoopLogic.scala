@@ -11,7 +11,7 @@ object MinLoopLogic {
 class MinLoopLogic(mRule: FizzbuzzRule, mMin: Int, mMax: Int) {
   val mMinLoopSize = mRule.minLength()
   val mMinLoop = Range.inclusive(1, mMinLoopSize).filter(mRule.isFizzbuzz).map(x => MinLoopLogic.Entry(x, mRule.toFizzbuzz(x)))
-  val mInfinitLoop = from(mMinLoop, 0).filter(x => x.number > mMin)
+  val mInfinitLoop = from(mMinLoop).filter(x => x.number > mMin)
 
   def inverseFizzbuzz = (aInput: Seq[String]) => {
     val tList = Range.inclusive(0, mMinLoop.size)
@@ -26,8 +26,16 @@ class MinLoopLogic(mRule: FizzbuzzRule, mMin: Int, mMax: Int) {
     }
   }
 
-  def from(s: Seq[Entry], i: Int): Stream[Entry] = {
-    val t = s(i % s.size)
-    Stream.cons(Entry(t.number + mMinLoopSize * (i / s.size), t.fizzbuzz), from(s, i + 1))
+  def from(seq: Seq[Entry]): Stream[Entry] = {
+    def _from(s: Seq[Entry], r: Stream[Entry]): Stream[Entry] = {
+      s match {
+        case Nil => r
+        case _ if (r == Nil) =>
+          val nextSeq = seq.map { x => Entry(x.number + mRule.minLength(), x.fizzbuzz) }
+          _from(s.dropRight(1), s.last #:: from(nextSeq))
+        case _ => _from(s.dropRight(1), s.last #:: r)
+      }
+    }
+    _from(seq, Stream.Empty)
   }
 }
