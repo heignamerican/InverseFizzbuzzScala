@@ -4,8 +4,7 @@ import scala.collection.immutable.Stream
 import heignamerican.InverseFizzbuzz.MinLoopLogic.Entry
 
 object MinLoopLogic {
-  case class Entry(number: Int, fizzbuzz: String) {
-  }
+  case class Entry(number: Int, fizzbuzz: String)
 }
 
 class MinLoopLogic(mRule: FizzbuzzRule, mMin: Int, mMax: Int) {
@@ -13,10 +12,10 @@ class MinLoopLogic(mRule: FizzbuzzRule, mMin: Int, mMax: Int) {
   val mMinLoop = Range.inclusive(1, mMinLoopSize).filter(mRule.isFizzbuzz).map(x => MinLoopLogic.Entry(x, mRule.toFizzbuzz(x)))
   val mInfinitLoop = from(mMinLoop).filter(x => x.number > mMin)
 
-  def inverseFizzbuzz = (aInput: Seq[String]) => {
+  def inverseFizzbuzz(aInput: Seq[String]) = {
     val tList = Range.inclusive(0, mMinLoop.size)
       .map(aStart => mInfinitLoop.drop(aStart).take(aInput.size))
-      .filter(_.zip(aInput).forall(x => x._1.fizzbuzz == x._2))
+      .filter(_.zip(aInput).forall { case (candidateEntry, inputFizzbuzz) => candidateEntry.fizzbuzz == inputFizzbuzz })
       .map(x => Result(x.head.number, x.last.number))
       .filter(x => x.right <= mMax)
 
