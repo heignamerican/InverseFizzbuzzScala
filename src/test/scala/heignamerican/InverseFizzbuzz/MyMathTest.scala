@@ -3,7 +3,7 @@ import org.scalatest.junit.AssertionsForJUnit
 import org.junit.Test
 import heignamerican.MyMath
 
-class MyMathTest extends AssertionsForJUnit {
+class MyMathTest extends AssertionsForJUnit with org.scalatest.junit.JUnitSuite {
   @Test def testGcd() {
     assert(3 === MyMath.gcd(3, 3))
     assert(1 === MyMath.gcd(5, 7))
