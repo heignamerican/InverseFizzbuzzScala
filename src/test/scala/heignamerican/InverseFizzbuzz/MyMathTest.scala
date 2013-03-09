@@ -1,10 +1,9 @@
 package heignamerican.InverseFizzbuzz
-import org.scalatest.junit.AssertionsForJUnit
-import org.junit.Test
+import org.scalatest.FunSuite
 import heignamerican.MyMath
 
-class MyMathTest extends AssertionsForJUnit with org.scalatest.junit.JUnitSuite {
-  @Test def testGcd() {
+class MyMathTest extends FunSuite {
+  test("gcd test") {
     assert(3 === MyMath.gcd(3, 3))
     assert(1 === MyMath.gcd(5, 7))
     assert(3 === MyMath.gcd(9, 3))
@@ -14,7 +13,7 @@ class MyMathTest extends AssertionsForJUnit with org.scalatest.junit.JUnitSuite 
     assert(8 === MyMath.gcd(32, 24))
   }
 
-  @Test def testLcm() {
+  test("lcm test") {
     assert(1 === MyMath.lcm(List(1)))
     assert(15 === MyMath.lcm(List(3, 5)))
     assert(12 === MyMath.lcm(List(2, 3, 4)))
